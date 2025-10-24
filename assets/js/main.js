@@ -68,4 +68,27 @@
 
     return false;
   });
+
+  // Auto-generate a draft on first agent visit per ticket
+  $(function(){
+    try {
+      var $btn = $('a.ai-generate-reply').first();
+      if (!$btn.length) return;
+      var tid = $btn.data('ticket-id');
+      if (!tid) return;
+      var key = 'ai-autodraft:' + tid;
+      if (window.localStorage && localStorage.getItem(key)) return;
+      var $ta = $('#response');
+      if (!$ta.length) return;
+      var current = '';
+      if (typeof $ta.redactor === 'function' && $ta.hasClass('richtext')) {
+        current = $ta.redactor('source.getCode') || '';
+      } else {
+        current = $ta.val() || '';
+      }
+      if ((current || '').trim().length) return; // do not override existing content
+      if (window.localStorage) localStorage.setItem(key, String(Date.now()));
+      $btn.trigger('click');
+    } catch (e) { /* ignore */ }
+  });
 })();
