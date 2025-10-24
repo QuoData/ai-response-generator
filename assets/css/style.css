@@ -35,11 +35,12 @@
 
 #ai-global-spinner {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 22px;
   height: 22px;
-  border: 3px solid #666;
+  border: 3px solid #22c55e;
   border-top-color: transparent;
   border-radius: 50%;
   animation: ai-spin 0.8s linear infinite;
