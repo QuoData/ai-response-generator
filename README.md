@@ -43,6 +43,7 @@ This plugin adds an AI-powered "Generate Response" button to the agent ticket vi
 - **AI System Prompt**: (Optional) Custom instructions for the AI.
 - **Response Template**: (Optional) Template for formatting the AI response.
 - **RAG Content**: (Optional) Paste additional context to enrich AI responses.
+- **Auto-generate Draft**: Enable/disable automatically triggering AI to generate a draft reply on first agent visit to a ticket. Default: enabled.
 
 ## Security
 

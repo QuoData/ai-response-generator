@@ -97,6 +97,15 @@ class AIResponseGeneratorPlugin extends Plugin {
     <script type="text/javascript">
     window.AIResponseGen = window.AIResponseGen || {};
     window.AIResponseGen.ajaxEndpoint = 'ajax.php/ai/response';
+    <?php
+    $cfg = self::getActiveConfig();
+    $auto = true;
+    if ($cfg && method_exists($cfg, 'get')) {
+        $v = $cfg->get('auto_draft');
+        if ($v !== null && $v !== '') $auto = (bool)$v;
+    }
+    ?>
+    window.AIResponseGen.autoDraftEnabled = <?php echo $auto ? 'true' : 'false'; ?>;
     </script>
     <?php
     }

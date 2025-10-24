@@ -69,9 +69,12 @@
     return false;
   });
 
-  // Auto-generate a draft on first agent visit per ticket
+  // Auto-generate a draft on first agent visit per ticket (configurable)
   $(function(){
     try {
+      // Respect configuration flag; default to enabled when flag is missing for backward compatibility
+      if (window.AIResponseGen && window.AIResponseGen.autoDraftEnabled === false) return;
+
       var $btn = $('a.ai-generate-reply').first();
       if (!$btn.length) return;
       var tid = $btn.data('ticket-id');
