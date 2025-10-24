@@ -26,11 +26,28 @@
   }
 
   function setLoading($a, loading) {
-    if (loading) {
-      $a.addClass('ai-loading');
-    } else {
-      $a.removeClass('ai-loading');
-    }
+    try {
+      if (loading) {
+        $a.addClass('ai-loading');
+        // Ensure a global, always-visible spinner is shown
+        if (!document.getElementById('ai-global-spinner')) {
+          var spinner = document.createElement('div');
+          spinner.id = 'ai-global-spinner';
+          document.body.appendChild(spinner);
+        }
+        document.body.classList.add('ai-loading-global');
+      } else {
+        $a.removeClass('ai-loading');
+        // If no other AI actions are loading, hide the global spinner
+        setTimeout(function(){
+          if ($('.ai-loading').length === 0) {
+            document.body.classList.remove('ai-loading-global');
+            var s = document.getElementById('ai-global-spinner');
+            if (s) s.parentNode.removeChild(s);
+          }
+        }, 0);
+      }
+    } catch (e) { /* ignore */ }
   }
 
   $(document).on('click', 'a.ai-generate-reply', function (e) {
@@ -92,6 +109,6 @@
       if ((current || '').trim().length) return; // do not override existing content
       if (window.localStorage) localStorage.setItem(key, String(Date.now()));
       $btn.trigger('click');
-    } catch (e) { /* ignore */ }
+    } catch (e) { try { alert('Auto-draft failed: ' + (e && (e.message || e))); } catch(_) {} }
   });
 })();
