@@ -71,6 +71,16 @@ class AIResponseGeneratorPluginConfig extends PluginConfig {
             ),
         ));
 
+        // Auto-draft setting (enable/disable automatic draft generation on first visit)
+        $fields['auto_draft'] = new BooleanField(array(
+            'label' => __('Auto-generate Draft'),
+            'hint' => __('Automatically trigger AI to generate a draft reply when an agent opens a ticket (first time per ticket).'),
+            'default' => true,
+            'configuration' => array(
+                'desc' => __('Disable to prevent automatic draft generation; the agent can still click the AI button manually.'),
+            ),
+        ));
+
         return $fields;
     }
 }
